@@ -1,6 +1,7 @@
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,7 +55,14 @@ public class Server extends HttpServlet {
 		    // sctx.setAttribute("chatListe", arl);
 		     
 		    String sctxPath = sctx.getRealPath("/");
-		    FileWriter out = new FileWriter(sctxPath + filename, true); 
+		    File logfile = new File(sctxPath, filename);
+		    FileWriter out;
+		    if (!(logfile.exists())) {
+		    	out = new FileWriter(logfile);
+		    	out.write("neues file" + System.lineSeparator());
+		    } else {
+		    	out = new FileWriter(logfile, true);
+		    }
 		    out.write("[" + simpleDateFormat.format(zeitstempel) + "] " + msg + System.lineSeparator());
 		    out.close();
 		}
