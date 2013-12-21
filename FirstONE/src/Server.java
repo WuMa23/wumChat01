@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,9 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -38,21 +35,16 @@ public class Server extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ServletContext sctx = getServletContext();
-//		ArrayList<String> arl = new ArrayList<String>();
-//		if (sctx.getAttribute("chatListe") != null){
-//			arl = (ArrayList)sctx.getAttribute("chatListe");	
-//		}
-			
-		String msg =  request.getParameter("message");
+
+		String userMsg =  request.getParameter("usermsg");
+		String userId =  request.getParameter("userid");
 		String filename = "/WEB-INF/chatLog.txt";
 		
-		if (msg != null) {
-		    System.out.println("Folgende Nachricht wurde am Server empfangen : " + msg);
+		if (userMsg != null) {
+		    System.out.println("Chat-Nachricht: " + userMsg);
 		    
 		    Date zeitstempel = new Date();
 		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-		    // arl.add("[" + simpleDateFormat.format(zeitstempel) + "] " + msg);
-		    // sctx.setAttribute("chatListe", arl);
 		     
 		    String sctxPath = sctx.getRealPath("/");
 		    File logfile = new File(sctxPath, filename);
@@ -60,17 +52,17 @@ public class Server extends HttpServlet {
 		    if (!(logfile.exists())) {
 		    	out = new FileWriter(logfile);
 		    	out.write("neues file" + System.lineSeparator());
+		    	System.out.println(filename + " in " + sctxPath + " erstellt");
 		    } else {
 		    	out = new FileWriter(logfile, true);
 		    }
-		    out.write("[" + simpleDateFormat.format(zeitstempel) + "] " + msg + System.lineSeparator());
+		    out.write(simpleDateFormat.format(zeitstempel) + "|" + userId + "|" + userMsg + System.lineSeparator());
 		    out.close();
 		}
 		
 		InputStream is = sctx.getResourceAsStream(filename);
         if (is != null) {
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader reader = new BufferedReader(isr);
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             PrintWriter writer = response.getWriter();
             String text = "";
             
@@ -78,13 +70,8 @@ public class Server extends HttpServlet {
             while ((text = reader.readLine()) != null) {
                 writer.println("<div id='chatboxmsg'>" + text + "</div>");
             }
+            reader.close();
         }
-/*		
-  		PrintWriter out = response.getWriter();
-  		Iterator<String> i1 = arl.iterator();
-		while (i1.hasNext()) {
-		    out.println("<div id='chatboxmsg'>" + i1.next() + "</div>");
-		}*/
 	}
 
 	/**

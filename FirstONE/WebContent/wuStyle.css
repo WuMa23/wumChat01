@@ -37,10 +37,16 @@ body
 	margin-left:auto;
 	margin-right:auto;	
 }
+#userid
+{
+	heigth:18px;
+	width:70px; 
+	border-color:#ACD8F0; border-width:1px; border-style:solid;
+}
 #usermsg
 {
 	heigth:18px;
-	width:378px; 
+	width:300px; 
 	border-color:#ACD8F0; border-width:1px; border-style:solid;
 }
 #submitmsg

@@ -7,7 +7,7 @@
 <script src="jquery-2.0.3.js" type="text/javascript"></script>
 </head>
 <!-- ---------------------------------------- -->
-<body>
+<body onload="sndRcvHTTP();">
 <noscript><div id="error">ohne Javascript geht nix!</div></noscript>
 
 <div id="banner">
@@ -17,12 +17,14 @@
 	<div id="menu">Menü</div>
 	<div id="chatbox">Nachrichten</div>
 	<div id="userform"> 
-		<form name="message">
-			<input name="usermsg" id="usermsg" type="text">
-			<input name="submitmsg" id="submitmsg" type="button" onclick="wumExternalFunction()" value="Send">
+		<form name="message" action="#" onsubmit="sndMsgToServer()">
+			<input name="userid" id="userid" type="text" value="anonymous">
+			<input name="usermsg" id="usermsg" type="text" onkeypress="chkEnter(event)">
+			<input name="submitmsg" id="submitmsg" type="button" value="Send" onclick="sndMsgToServer()">
 		</form>
 	</div>
 </div>
 <script src="script.js" type="text/javascript"></script>
+<script>window.setInterval('sndRcvHTTP()', 2000);</script>
 </body>
 </html>
