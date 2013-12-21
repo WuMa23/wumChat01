@@ -1,0 +1,61 @@
+@CHARSET "ISO-8859-1";
+body
+{
+	font:12px arial;
+}
+
+#main
+{
+	margin:50px;
+	padding-bottom:25px;
+	background-color:LightCyan;
+	border-width:1px; border-style:solid;border-color:#ACD8F0;
+	width:500px; 
+}
+#menu
+{
+	padding:12.5px;
+	text-align:center; 
+}
+#chatbox
+{
+	background-color:white;
+	height:270px;
+	width:410px;
+	border-width:1px; border-style:solid;border-color:#ACD8F0;
+	margin:0px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:25px;
+	padding:10px;
+	overflow-y:scroll;
+}
+#userform
+{
+	width:432px;
+	margin:0px;
+	margin-left:auto;
+	margin-right:auto;	
+}
+#usermsg
+{
+	heigth:18px;
+	width:378px; 
+	border-color:#ACD8F0; border-width:1px; border-style:solid;
+}
+#submitmsg
+{
+	width:44px;
+}
+#error
+{
+	text-align:center;
+	background-color:red;	
+}
+#banner
+{
+	position:fixed;	top:100px; left:600px;
+	text-align:center; padding:10px; margin:20px;
+	border-color:black; border-width:3px; border-style:solid;
+	background-color:red;	
+}
